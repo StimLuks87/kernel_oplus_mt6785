@@ -1487,6 +1487,16 @@ binder_enqueue_thread_work_ilocked(struct binder_thread *thread,
 				   struct binder_work *work)
 {
 	binder_enqueue_work_ilocked(work, &thread->todo);
+
+	/* (e)poll-based threads require an explicit wakeup signal when
+	 * queuing their own work; they rely on these events to consume
+	 * messages without I/O block. Without it, threads risk waiting
+	 * indefinitely without handling the work.
+	 */
+	if (thread->looper & BINDER_LOOPER_STATE_POLL &&
+	    thread->pid == current->pid && !thread->process_todo)
+		wake_up_interruptible_sync(&thread->wait);
+
 	thread->process_todo = true;
 }
 
@@ -3533,6 +3543,7 @@ static bool binder_proc_transaction(struct binder_transaction *t,
 		binder_node_unlock(node);
 		return false;
 	}
+
 	if (!thread && !pending_async)
 		thread = binder_select_thread_ilocked(proc);
 
@@ -4218,10 +4229,13 @@ static void binder_transaction(struct binder_proc *proc,
 
 	if (reply) {
 		binder_enqueue_thread_work(thread, tcomplete);
+<<<<<<< HEAD
 #ifdef BINDER_WATCHDOG
 		binder_update_transaction_time(&binder_transaction_log,
 				in_reply_to, 2);
 #endif
+=======
+>>>>>>> v4.14.344-openela
 		binder_inner_proc_lock(target_proc);
 		if (target_thread->is_dead) {
 			binder_inner_proc_unlock(target_proc);
