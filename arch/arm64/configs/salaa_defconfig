@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.14.348 Kernel Configuration
+# Linux/arm64 4.14.351 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -765,6 +765,7 @@ CONFIG_TCP_CONG_ILLINOIS=y
 CONFIG_TCP_CONG_DCTCP=y
 CONFIG_TCP_CONG_CDG=y
 CONFIG_TCP_CONG_BBR=y
+CONFIG_TCP_CONG_BBR2=y
 # CONFIG_DEFAULT_BIC is not set
 # CONFIG_DEFAULT_CUBIC is not set
 # CONFIG_DEFAULT_HTCP is not set

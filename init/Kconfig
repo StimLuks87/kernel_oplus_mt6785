@@ -114,6 +114,17 @@ config LOCALVERSION_AUTO
 
 	  which is done within the script "scripts/setlocalversion".)
 
+config POLLY_CLANG
+	bool "Use Clang Polly optimizations"
+	help
+	  This option enables Clang's polyhedral loop optimizer known as
+	  Polly. Polly is able to optimize various loops throughout the
+	  kernel for cache locality. This requires a Clang toolchain
+	  compiled with support for Polly. More information can be found
+	  from Polly's website:
+
+	  https://polly.llvm.org
+
 config HAVE_KERNEL_GZIP
 	bool
 
@@ -1251,13 +1262,13 @@ config CC_OPTIMIZE_FOR_PERFORMANCE
 	bool "Optimize for performance"
 	help
 	  This is the default optimization level for the kernel, building
-	  with the "-O2" compiler flag for best performance and most
+	  with the "-O3" compiler flag for best performance and most
 	  helpful compile-time warnings.
 
 config CC_OPTIMIZE_FOR_SIZE
 	bool "Optimize for size"
 	help
-	  Enabling this option will pass "-Os" instead of "-O2" to
+	  Enabling this option will pass "-Os" instead of "-O3" to
 	  your compiler resulting in a smaller kernel.
 
 	  If unsure, say N.
