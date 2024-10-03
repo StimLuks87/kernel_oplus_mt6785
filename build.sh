@@ -9,7 +9,7 @@ export ARCH=arm64
 export KBUILD_BUILD_HOST=linux-build
 export KBUILD_BUILD_USER="stim"
 clangbin=clang/bin/clang
-if ! [ -a $clangbin ]; then git clone --depth=1 https://github.com/psionicprjkt/android_prebuilts_clang_host_linux-x86_clang-r522817 clang
+if ! [ -a $clangbin ]; then git clone --depth=1 https://gitlab.com/kei-space/clang/r522817.git clang
 fi
 gcc64bin=gcc64/bin/aarch64-linux-android-as
 if ! [ -a $gcc64bin ]; then git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 gcc64
